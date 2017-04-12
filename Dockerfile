@@ -15,13 +15,14 @@ RUN \
  apk upgrade --update && \
  apk add --no-cache ca-certificates nodejs mongodb
 
+# Install bash
+RUN apk add --update bash && rm -rf /var/cache/apk/*
+
+
 WORKDIR /app
 
 ADD ./package.json /app/
 RUN npm install
 ADD . /app
-
-#ENV MONGO_SHARD one
-#ENV MONGO_URL mongodb://dbserver/apm
 
 CMD [ "npm", "run", "start" ]
